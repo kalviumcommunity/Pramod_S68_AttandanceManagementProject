@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    public static void displaySchoolDirectory(List<Person> people) {
+    System.out.println("\nSchool Directory:");
+        for (Person p : people) {
+            p.displayDetails();
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("--- School Attendance System ---");
 
@@ -35,21 +43,26 @@ public class Main {
         }
 
     List<AttendanceRecord> attendanceLog = new ArrayList<>();
-    attendanceLog.add(new AttendanceRecord(students[0].getId(), courses[0].getCourseId(), "Present"));
-    attendanceLog.add(new AttendanceRecord(students[1].getId(), courses[1].getCourseId(), "Absent"));
-    attendanceLog.add(new AttendanceRecord(students[2].getId(), courses[2].getCourseId(), "Late")); // Invalid status
-    attendanceLog.add(new AttendanceRecord(students[3].getId(), courses[0].getCourseId(), "Present"));
+    attendanceLog.add(new AttendanceRecord(students[0], courses[0], "Present"));
+    attendanceLog.add(new AttendanceRecord(students[1], courses[1], "Absent"));
+    attendanceLog.add(new AttendanceRecord(students[2], courses[2], "Late")); // Invalid status
+    attendanceLog.add(new AttendanceRecord(students[3], courses[0], "Present"));
 
     // attendance for additional students
-    attendanceLog.add(new AttendanceRecord(students[4].getId(), courses[3].getCourseId(), "Present"));
-    attendanceLog.add(new AttendanceRecord(students[5].getId(), courses[4].getCourseId(), "Absent"));
+    attendanceLog.add(new AttendanceRecord(students[4], courses[3], "Present"));
+    attendanceLog.add(new AttendanceRecord(students[5], courses[4], "Absent"));
 
     // Create staff/teacher examples and display them
-    System.out.println("\nStaff and Teaching Examples:");
     Teacher teacher1 = new Teacher("Mr. Smith", "Mathematics");
     Staff staff1 = new Staff("Ms. Green", "Librarian");
-    teacher1.displayDetails();
-    staff1.displayDetails();
+
+    // Build a polymorphic list of people and display the directory
+    List<Person> schoolPeople = new ArrayList<>();
+    for (Student s : students) if (s != null) schoolPeople.add(s);
+    schoolPeople.add(teacher1);
+    schoolPeople.add(staff1);
+
+    displaySchoolDirectory(schoolPeople);
 
     System.out.println("\nAttendance Records:");
         for (AttendanceRecord record : attendanceLog) {
@@ -57,8 +70,13 @@ public class Main {
         }
 
         // --- Persistence: save to files using FileStorageService ---
+        // Demonstrate filtering Student objects from the polymorphic people list
         ArrayList<Student> studentList = new ArrayList<>();
-        for (Student s : students) if (s != null) studentList.add(s);
+        for (Person p : schoolPeople) {
+            if (p instanceof Student) {
+                studentList.add((Student) p);
+            }
+        }
 
         ArrayList<Course> courseList = new ArrayList<>();
         for (Course c : courses) if (c != null) courseList.add(c);
