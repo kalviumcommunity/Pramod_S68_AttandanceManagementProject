@@ -1,0 +1,6 @@
+1,101,Present
+2,102,Absent
+3,103,Invalid
+4,101,Present
+5,104,Present
+6,105,Absent

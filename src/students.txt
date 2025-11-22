@@ -1,0 +1,6 @@
+1,Alice Wonderland,Grade 10
+2,Bob the builder,Grade 9
+3,Charlie Chaplin,Grade 11
+4,Dora Explorer,Grade 8
+5,Eve Polastri,Grade 12
+6,Frank Underwood,Grade 10
