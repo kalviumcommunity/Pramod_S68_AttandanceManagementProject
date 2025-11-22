@@ -1,4 +1,4 @@
-# Pramod_S68_AttandanceManagementProject
+# MayurKSetty_S68_AttandanceManagementProject
 
 ## Overview
 
@@ -62,3 +62,19 @@ src/
 - Added validation for attendance status (only "Present" or "Absent").
 - Used `ArrayList` in `Main.java` to store and display attendance records.
 - Demonstrated retrieving IDs using getters when creating records.
+
+## Session 2: Core Domain Modelling
+- Defined `Student` class with `studentId`, `name`, `setDetails()`, and `displayDetails()` method.
+- Defined `Course` class with `courseId`, `courseName`, `setDetails()`, and `displayDetails()` method.
+- Utilized arrays of objects in `Main.java` to manage and display multiple students and courses.
+- Introduced basic usage of `this` keyword.
+
+### How to Run
+1. Navigate to the project root directory.
+2. Compile: `javac src/com/school/Student.java src/com/school/Course.java src/com/school/Main.java` (or `javac src/com/school/*.java`)
+3. Run: `java -cp src com.school.Main`
+
+### Submission
+- Link to your Pull Request.
+- Screenshot of the output of running the file.
+- Screenshot of the command-line output after pushing the code.
