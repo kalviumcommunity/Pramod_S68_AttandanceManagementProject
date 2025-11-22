@@ -53,6 +53,17 @@ src/
    - The generated files are created in the project root by default (same folder where you run the `java` command).
    - Each line follows CSV-like `toDataString()` formats. You can open them with any text editor.
 
+   ## Part 8: Overloaded Commands: Multiple Ways to Mark and Query Attendance
+   - Added `AttendanceService.java` that manages `AttendanceRecord` objects and exposes overloaded methods to mark attendance by object or by IDs.
+   - `AttendanceService` provides helper lookup methods to translate IDs to objects, display methods that filter by student or course, and a `saveAttendanceData()` method which delegates to `FileStorageService`.
+   - `Main.java` now demonstrates both overloads (object-based and ID-based) and shows the polymorphic school directory and filtered attendance outputs.
+
+   ### How to Run (Part 8)
+   1. Navigate to the project root directory.
+   2. Compile: `javac -d out src/com/school/*.java`
+   3. Run: `java -cp out com.school.Main`
+   4. Check `attendance_log.txt` to see saved records created by `AttendanceService.saveAttendanceData()`.
+
 ## Usage
 
 - The application registers a set of students and courses.

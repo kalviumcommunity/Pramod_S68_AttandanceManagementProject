@@ -42,15 +42,25 @@ public class Main {
             if (course != null) course.displayDetails();
         }
 
-    List<AttendanceRecord> attendanceLog = new ArrayList<>();
-    attendanceLog.add(new AttendanceRecord(students[0], courses[0], "Present"));
-    attendanceLog.add(new AttendanceRecord(students[1], courses[1], "Absent"));
-    attendanceLog.add(new AttendanceRecord(students[2], courses[2], "Late")); // Invalid status
-    attendanceLog.add(new AttendanceRecord(students[3], courses[0], "Present"));
+    // create storage and attendance service
+    FileStorageService storage = new FileStorageService();
+    AttendanceService attendanceService = new AttendanceService(storage);
 
-    // attendance for additional students
-    attendanceLog.add(new AttendanceRecord(students[4], courses[3], "Present"));
-    attendanceLog.add(new AttendanceRecord(students[5], courses[4], "Absent"));
+    // prepare lists of all students and courses (for ID-based lookups)
+    ArrayList<Student> allStudents = new ArrayList<>();
+    for (Student s : students) if (s != null) allStudents.add(s);
+    ArrayList<Course> allCourses = new ArrayList<>();
+    for (Course c : courses) if (c != null) allCourses.add(c);
+
+    // Mark attendance using object-based overload
+    attendanceService.markAttendance(students[0], courses[0], "Present");
+    attendanceService.markAttendance(students[1], courses[1], "Absent");
+    attendanceService.markAttendance(students[2], courses[2], "Late"); // Invalid status
+    attendanceService.markAttendance(students[3], courses[0], "Present");
+
+    // Mark attendance using ID-based overload (demonstrates lookup)
+    attendanceService.markAttendance(students[4].getId(), courses[3].getCourseId(), "Present", allStudents, allCourses);
+    attendanceService.markAttendance(students[5].getId(), courses[4].getCourseId(), "Absent", allStudents, allCourses);
 
     // Create staff/teacher examples and display them
     Teacher teacher1 = new Teacher("Mr. Smith", "Mathematics");
@@ -65,7 +75,7 @@ public class Main {
     displaySchoolDirectory(schoolPeople);
 
     System.out.println("\nAttendance Records:");
-        for (AttendanceRecord record : attendanceLog) {
+        for (AttendanceRecord record : attendanceService.getAttendanceLog()) {
             record.displayRecord();
         }
 
@@ -81,12 +91,11 @@ public class Main {
         ArrayList<Course> courseList = new ArrayList<>();
         for (Course c : courses) if (c != null) courseList.add(c);
 
-        ArrayList<AttendanceRecord> recordList = new ArrayList<>(attendanceLog);
+    ArrayList<AttendanceRecord> recordList = new ArrayList<>(attendanceService.getAttendanceLog());
 
-        FileStorageService storage = new FileStorageService();
-        storage.saveData(studentList, "students.txt");
-        storage.saveData(courseList, "courses.txt");
-        storage.saveData(recordList, "attendance_log.txt");
+    storage.saveData(studentList, "students.txt");
+    storage.saveData(courseList, "courses.txt");
+    storage.saveData(recordList, "attendance_log.txt");
 
         System.out.println("\nSession 4: Encapsulation & Attendance Recording Complete");
     }
