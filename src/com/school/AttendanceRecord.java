@@ -13,6 +13,7 @@ public class AttendanceRecord {
             this.status = status;
         } else {
             this.status = "Invalid";
+            System.out.println("[Warning] Attendance status '" + status + "' is invalid for studentId=" + studentId + ", courseId=C" + courseId + ". Marked as 'Invalid'.");
         }
     }
 
