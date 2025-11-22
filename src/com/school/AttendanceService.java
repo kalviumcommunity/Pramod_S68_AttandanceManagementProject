@@ -2,16 +2,18 @@ package com.school;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+// no unused imports
 // no unused imports
 
 public class AttendanceService {
     private List<AttendanceRecord> attendanceLog;
     private FileStorageService storageService;
+    private RegistrationService registrationService;
 
-    public AttendanceService(FileStorageService storageService) {
+    public AttendanceService(RegistrationService registrationService, FileStorageService storageService) {
         this.attendanceLog = new ArrayList<>();
         this.storageService = storageService;
+        this.registrationService = registrationService;
     }
 
     // Mark attendance with actual objects
@@ -21,27 +23,15 @@ public class AttendanceService {
         System.out.println("Marked attendance: " + record.toDataString());
     }
 
-    // Mark attendance by IDs - look up Student and Course from provided lists
-    public void markAttendance(int studentId, int courseId, String status, List<Student> allStudents, List<Course> allCourses) {
-        Student s = findStudentById(studentId, allStudents);
-        Course c = findCourseById(courseId, allCourses);
+    // Mark attendance by IDs - lookup via RegistrationService
+    public void markAttendance(int studentId, int courseId, String status) {
+        Student s = registrationService.findStudentById(studentId);
+        Course c = registrationService.findCourseById(courseId);
         if (s == null || c == null) {
             System.err.println("Cannot mark attendance: student or course not found (" + studentId + ", " + courseId + ")");
             return;
         }
         markAttendance(s, c, status);
-    }
-
-    private Student findStudentById(int id, List<Student> allStudents) {
-        if (allStudents == null) return null;
-        Optional<Student> opt = allStudents.stream().filter(st -> st.getId() == id).findFirst();
-        return opt.orElse(null);
-    }
-
-    private Course findCourseById(int id, List<Course> allCourses) {
-        if (allCourses == null) return null;
-        Optional<Course> opt = allCourses.stream().filter(c -> c.getCourseId() == id).findFirst();
-        return opt.orElse(null);
     }
 
     public void displayAttendanceLog() {
