@@ -1,4 +1,4 @@
-# MayurKSetty_S68_AttandanceManagementProject
+# Pramod_S68_AttandanceManagementProject
 
 ## Overview
 
