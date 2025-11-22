@@ -1,4 +1,4 @@
-# Pranod_S68_AttandanceManagementProject
+# Pramod_S68_AttandanceManagementProject
 
 ## Overview
 
@@ -34,6 +34,24 @@ src/
    ```sh
    java -cp out com.school.Main
    ```
+ 
+   ## Part 6: Interface-Driven Persistence with Storage
+   - Defined a `Storable` interface with a `toDataString()` method.
+   - Modified `Student`, `Course`, and `AttendanceRecord` classes to implement the `Storable` interface and provide their specific `toDataString()` implementations (CSV format).
+   - Created a `FileStorageService` class with a `saveData(List<? extends Storable> items, String filename)` method to write `Storable` objects to a text file.
+   - Utilized `try-with-resources` for safe file handling (`PrintWriter`, `FileWriter`).
+   - Demonstrated in `Main.java` how to save lists of students, courses, and attendance records to separate files (`students.txt`, `courses.txt`, `attendance_log.txt`).
+   - Discussed the flexibility provided by interfaces for handling different types of storable objects uniformly.
+
+   ### How to Run (Part 6)
+   1. Navigate to the project root directory.
+   2. Compile: `javac -d out src/com/school/*.java`
+   3. Run: `java -cp out com.school.Main`
+   4. Check the generated files in the project root: `students.txt`, `courses.txt`, `attendance_log.txt`.
+
+   ### Notes
+   - The generated files are created in the project root by default (same folder where you run the `java` command).
+   - Each line follows CSV-like `toDataString()` formats. You can open them with any text editor.
 
 ## Usage
 

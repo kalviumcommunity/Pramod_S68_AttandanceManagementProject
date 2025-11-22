@@ -56,6 +56,20 @@ public class Main {
             record.displayRecord();
         }
 
+        // --- Persistence: save to files using FileStorageService ---
+        ArrayList<Student> studentList = new ArrayList<>();
+        for (Student s : students) if (s != null) studentList.add(s);
+
+        ArrayList<Course> courseList = new ArrayList<>();
+        for (Course c : courses) if (c != null) courseList.add(c);
+
+        ArrayList<AttendanceRecord> recordList = new ArrayList<>(attendanceLog);
+
+        FileStorageService storage = new FileStorageService();
+        storage.saveData(studentList, "students.txt");
+        storage.saveData(courseList, "courses.txt");
+        storage.saveData(recordList, "attendance_log.txt");
+
         System.out.println("\nSession 4: Encapsulation & Attendance Recording Complete");
     }
 }
