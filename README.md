@@ -1,4 +1,4 @@
-# MayurKSetty_S68_AttandanceManagementProject
+# Pranod_S68_AttandanceManagementProject
 
 ## Overview
 
@@ -101,3 +101,22 @@ src/
 1. Navigate to the project root directory.
 2. Compile: `javac -d out src/com/school/*.java` (recommended) or `javac src/com/school/*.java`
 3. Run: `java -cp out com.school.Main` (or `java -cp src com.school.Main` if compiled without `-d out`).
+
+## Part 5: Establishing Students, Teaching & Non-Teaching Staff hierarchy
+- Created a base class `Person.java` with common attributes (`id`, `name`), a universal auto-ID generator, and a `displayDetails()` method.
+- Modified `Student.java` to inherit from `Person`, using `super()` to call the parent constructor and overriding `displayDetails()` to add student-specific info (e.g., grade level).
+- Created `Teacher.java` extending `Person`, adding a `subjectTaught` attribute and its own `displayDetails()`.
+- Created `Staff.java` extending `Person`, adding a `role` attribute and its own `displayDetails()`.
+- Demonstrated creation and display of `Student`, `Teacher`, and `Staff` objects in `Main.java`.
+- Updated `AttendanceRecord` usage to read the student id via `getId()` (inherited from `Person`).
+
+### How to Run
+1. Navigate to the project root directory.
+2. Compile all classes:
+   ```sh
+   javac -d out src/com/school/*.java
+   ```
+3. Run:
+   ```sh
+   java -cp out com.school.Main
+   ```
